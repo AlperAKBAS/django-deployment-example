@@ -1,0 +1,49 @@
+{% extends "basic_app/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <h3 class="account-heading"> LOGIN  </h2>
+            </div>
+        </div>
+    <!-- FORM HERE -->
+    
+    <div class="content">
+        {% if not user.is_authenticated %}
+        <form method="POST" action="{% url 'login'  %}"> 
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="id_username" class="form-control" placeholder="Enter User Name" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Help text</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="id_password" class="form-control" placeholder="" aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Help text</small>
+                <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+                 <small class="text-muted ml-4">
+                    Don't have account? <a class="ml-2" href="{% url 'register' %}">Click to get one.</a>
+                </small>
+            </div>
+            
+        </form>
+        {% else %}
+            <small class="text-muted ml-4">
+                   You are logged in as {{request.user.username}} <a class="ml-2" href="{% url 'logout' %}">Click to logout.</a>
+            </small>
+        {% endif %}
+    </div>
+
+
+</div>
+{% endblock content %}
+
+

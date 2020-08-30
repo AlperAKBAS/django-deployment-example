@@ -1,0 +1,20 @@
+{% extends "basic_app/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-section">
+    {% if user.is_authenticated %}    
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }} | <span class="text-muted">Last Login: {{user.last_login}}</span></p>
+        </div>
+    </div>
+    {% else %}
+
+    {% endif %}
+    <!-- FORM HERE -->
+</div>
+
+{% endblock content %}
